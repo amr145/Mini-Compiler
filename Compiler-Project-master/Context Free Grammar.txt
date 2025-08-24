@@ -1,0 +1,79 @@
+Code                 -> (Statement)*
+
+Statement            -> Variable_Declaration 
+                      | If_Statement
+                      | Function_Declaration
+                      | Function_Call
+                      | While_Loop
+                      | Comment
+                      | Print_Statement
+                      | ε
+
+-------------------------------------------------[Variable Declaration]-------------------------------------------------
+
+Variable_Declaration -> Identifier "be" "(" Expression ")" ";"
+
+Identifier           -> [a-zA-Z][a-zA-Z0-9_]*
+
+Expression           -> NumberExpression
+                      | StringExpression
+
+NumberExpression     -> Factor (Operator Factor)*
+
+Factor               -> Number 
+                      | Identifier  
+
+Number               -> [0-9]*
+
+Operator             -> "+" | "-" | "*" | "/" 
+
+StringExpression     -> '"' Content '"'
+
+Content              -> [a-zA-Z0-9\-\+/*=\:\(\)]*
+
+Bool                 -> "true" | "false"
+
+-----------------------------------------------------[If Statement]-----------------------------------------------------
+
+If_Statement         -> "check" "(" Condition ")" "{" (Statement ";")* "}" Elif_Statement Else_Statement
+
+Condition            -> Expression Comp_op Expression
+
+Comp_op              -> "<" | ">" | "==" | "!=" | "<=" | ">="
+
+Elif_Statement       -> "alsocheck" "(" Condition ")" "{" (Statement ";")* "}" 
+                      | ε
+
+Else_Statement       -> "other" "{" (Statement ";")* "}" 
+                      | ε 
+                      
+-------------------------------------------------[Function_Declaration]-------------------------------------------------
+
+Function_Declaration -> "make" Identifier "{" (Statement ";")* "}"
+                      | "make" Identifier "(" Parameter ")"{" (Statement ";")* "}"
+
+Parameter            -> Factor 
+                      | Factor ("," Factor)*
+
+-----------------------------------------------------[Function_Call]----------------------------------------------------
+
+Function_Call        -> "deliver" Identifier ";" 
+                      | "deliver" Identifier "(" Argument ")" ";"
+
+Argument             -> Factor 
+                      | Factor ("," Factor)*
+
+-----------------------------------------------------[While_Loop]-------------------------------------------------------
+
+While_Loop           -> "repeat" "(" Condition ")" "{" (Statement ";")+ "}"
+
+-----------------------------------------------------[Comments]---------------------------------------------------------
+
+Comment              -> "#" Content 
+
+-----------------------------------------------------[Print_Statement]--------------------------------------------------
+
+Print_Statement      -> "show" "(" Expression ")" ";"
+                      | "show" "(" Expression ("," Expression)* ")" ";"
+
+------------------------------------------------------------------------------------------------------------------------

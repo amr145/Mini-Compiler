@@ -1,0 +1,33 @@
+#$
+
+#x be (6);
+x be ("hello");
+
+
+y be (6);
+z be (6);
+
+check (x >= y) {
+    check (y > x) {
+        show("Hello");
+    }
+    show("Good!");
+    l be (100);
+} alsocheck (x == z) {
+    show("Hi");
+} other {
+    show("BAD!");
+}
+
+repeat (z>5) {
+    show("Hello, world!");
+}
+
+make func (x, y) {
+    show(x);
+    s be (16);
+}
+#this is a comment this
+
+#the problem may be with peek()
+deliver func (x, y);
